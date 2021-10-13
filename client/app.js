@@ -13,7 +13,7 @@
 
   function login(event) {
     event.preventDefault();
-    if (userNameInput === '') {
+    if (userNameInput.value === '') {
       alert('Uzupełnij pole nazwy');
     } else {
       userName = userNameInput;
@@ -22,5 +22,39 @@
     }
   }
 
+  function addMessage(author, content) {
+    // mój pomysł na ten kod
+    // let list = document.createElement('li');
+    // let heading = document.createElement('h3');
+    // let message = document.createElement('div');
+    // messagesList.appendChild(list);
+    // list.appendChild(heading);
+    // list.appendChild(message);
+    // heading.innerHTML = { author };
+    // message.innerHTML = { textMessage };
+
+    const message = document.createElement('li');
+    message.classList.add('message');
+    message.classList.add('message--received');
+    if(author === userName) message.classList.add('message--self');
+    message.innerHTML = `
+      <h3 class="message__author">${userName === author ? 'You' : author }</h3>
+      <div class="message__content">
+        ${content}
+      </div>
+    `;
+    messagesList.appendChild(message);
+
+  }
+
   loginForm.addEventListener('submit', login());
+  addMessageForm.addEventListener('submit', function sendMessage(event) {
+    event.preventDefault();
+    if (messageContentInput.value === '') {
+      alert('Uzupełnij pole wiadomości');
+    } else {
+      addMessage(userName, messageContentInput.value);
+      messageContentInput.value = '';
+    }
+  });
 }
