@@ -1,5 +1,4 @@
 {
-  'use strict';
 
   const loginForm = document.querySelector('#welcome-form');
   const messagesSection = document.querySelector('#messages-section');
