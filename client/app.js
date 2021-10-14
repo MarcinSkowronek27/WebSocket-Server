@@ -1,4 +1,5 @@
 {
+  'use strict';
 
   const loginForm = document.querySelector('#welcome-form');
   const messagesSection = document.querySelector('#messages-section');
@@ -46,7 +47,7 @@
 
   }
 
-  loginForm.addEventListener('submit', login());
+  loginForm.addEventListener('submit', login);
   addMessageForm.addEventListener('submit', function sendMessage(event) {
     event.preventDefault();
     if (messageContentInput.value === '') {
