@@ -29,6 +29,7 @@ io.on('connection', (socket) => {
   socket.on('login', (login) => {
     console.log('I added new user to active users' + socket.id);
     users.push(login);
+    socket.broadcast.emit('newUser', login);
     // console.log('users', users);
   });
   socket.on('disconnect', () => { 
