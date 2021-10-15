@@ -2,6 +2,7 @@ const socket = io();
 
 socket.on('message', ({ author, content }) => addMessage(author, content));
 
+
 'use strict';
 
 const loginForm = document.querySelector('#welcome-form');
@@ -57,6 +58,7 @@ addMessageForm.addEventListener('submit', function sendMessage(event) {
     alert('Uzupełnij pole wiadomości');
   } else {
     addMessage(userName, messageContentInput.value);
+    socket.emit('message', { author: 'John Doe', content: 'Lorem Ipsum' });
     messageContentInput.value = '';
   }
 });
