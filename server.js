@@ -11,6 +11,7 @@ app.get('*', (req, res) => {
 });
 
 const messages = [];
+const users = [];
 
 const server = app.listen(8000, () => {
   console.log('Server is running on Port:', 8000)
@@ -23,7 +24,14 @@ io.on('connection', (socket) => {
     console.log('Oh, I\'ve got something from ' + socket.id);
     messages.push(message);
     socket.broadcast.emit('message', message);
+    console.log('messages', messages)
+  });
+  socket.on('login', (login) => {
+    console.log('I added new user to active users' + socket.id);
+    users.push(login);
+    console.log('users', users);
   });
   socket.on('disconnect', () => { console.log('Oh, socket ' + socket.id + ' has left') });
   console.log('I\'ve added a listener on message and disconnect events \n');
+
 });

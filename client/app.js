@@ -2,7 +2,6 @@ const socket = io();
 
 socket.on('message', ({ author, content }) => addMessage(author, content));
 
-
 'use strict';
 
 const loginForm = document.querySelector('#welcome-form');
@@ -23,6 +22,7 @@ function login(event) {
     userName = userNameInput.value;
     loginForm.classList.remove('show');
     messagesSection.classList.add('show');
+    socket.emit('login', { name: userName, id: socket.id})
   }
 }
 
