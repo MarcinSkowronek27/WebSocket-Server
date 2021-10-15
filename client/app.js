@@ -20,7 +20,7 @@ function login(event) {
   if (userNameInput.value === '') {
     alert('Uzupełnij pole nazwy');
   } else {
-    userName = userNameInput;
+    userName = userNameInput.value;
     loginForm.classList.remove('show');
     messagesSection.classList.add('show');
   }
@@ -40,7 +40,7 @@ function addMessage(author, content) {
   const message = document.createElement('li');
   message.classList.add('message');
   message.classList.add('message--received');
-  if (author === userName) message.classList.add('message--self');
+  if (author == userName) message.classList.add('message--self');
   message.innerHTML = `
       <h3 class="message__author">${userName === author ? 'You' : author}</h3>
       <div class="message__content">
@@ -54,11 +54,12 @@ function addMessage(author, content) {
 loginForm.addEventListener('submit', login);
 addMessageForm.addEventListener('submit', function sendMessage(event) {
   event.preventDefault();
-  if (messageContentInput.value === '') {
+  let messageContent = messageContentInput.value;
+  if (messageContent === '') {
     alert('Uzupełnij pole wiadomości');
   } else {
-    addMessage(userName, messageContentInput.value);
-    socket.emit('message', { author: 'John Doe', content: 'Lorem Ipsum' });
-    messageContentInput.value = '';
+    addMessage(userName, messageContent);
+    socket.emit('message', { author: userName, content: messageContent });
+    messageContent = '';
   }
 });
