@@ -29,9 +29,14 @@ io.on('connection', (socket) => {
   socket.on('login', (login) => {
     console.log('I added new user to active users' + socket.id);
     users.push(login);
-    console.log('users', users);
+    // console.log('users', users);
   });
-  socket.on('disconnect', () => { console.log('Oh, socket ' + socket.id + ' has left') });
+  socket.on('disconnect', () => { 
+    console.log('Oh, socket ' + socket.id + ' has left');
+    users.splice(users.indexOf(socket.id, 1));
+    // console.log('users', users);
+    console.log('I remove user from users'+ socket.id);
+  });
   console.log('I\'ve added a listener on message and disconnect events \n');
 
 });
