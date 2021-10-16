@@ -1,7 +1,7 @@
 const socket = io();
 
 socket.on('message', ({ author, content }) => addMessage(author, content));
-socket.on('newUser', ({ author, content }) => addMessage(author = 'Chat Bot', content = `${userName} has joined the conversation!`));
+socket.on('newUser', ({ author, content }) => addMessage(author, content));
 
 'use strict';
 
@@ -15,19 +15,6 @@ const messageContentInput = document.querySelector('#message-content');
 
 let userName;
 
-function newUser(user) {
-  const message = document.createElement('li');
-  message.classList.add('message');
-  message.classList.add('message--received');
-  message.innerHTML = `
-      <h3 class="message__author">Chat Bot</h3>
-      <div class="message__content">
-        ${user + 'has joined the conversation!'}
-      </div>
-    `;
-  messagesList.insertBefore(message, messagesList.childNodes[0]);
-}
-
 function login(event) {
   event.preventDefault();
   if (userNameInput.value === '') {
@@ -37,6 +24,7 @@ function login(event) {
     loginForm.classList.remove('show');
     messagesSection.classList.add('show');
     socket.emit('login', { name: userName, id: socket.id });
+    socket.emit('newUser', {author: 'Chat Bot', content: `${userName} has joined the conversation!`});
   }
 }
 
@@ -56,6 +44,7 @@ function addMessage(author, content) {
   message.classList.add('message');
   message.classList.add('message--received');
   if (author == userName) message.classList.add('message--self');
+  if (author == 'Chat Bot') message.classList.add('chatbot');
   message.innerHTML = `
       <h3 class="message__author">${userName === author ? 'You' : author}</h3>
       <div class="message__content">
