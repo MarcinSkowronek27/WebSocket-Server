@@ -30,18 +30,19 @@ io.on('connection', (socket) => {
     console.log('I added new user to active users' + socket.id);
     users.push(login);
     // socket.broadcast.emit('newUser', login);
-    // console.log('login', login)
-    // console.log('users', users);
+    // console.log('login', login);
   });
   socket.on('newUser', (login) => {
     socket.broadcast.emit('newUser', login);
   });
   socket.on('disconnect', () => {
     console.log('Oh, socket ' + socket.id + ' has left');
+    let findName = users.filter(function (el) {
+      return el.id === socket.id;
+    });
     users.splice(users.indexOf(socket.id, 1));
-    // console.log('users', users);
     console.log('I remove user from users' + socket.id);
-    socket.broadcast.emit('removeUser', {author: 'Chat Bot', content: 'has left the conversation... :('});
+    socket.broadcast.emit('removeUser', { author: 'Chat Bot', content: `${findName[0].name} has left the conversation... :(` });
   });
   console.log('I\'ve added a listener on message and disconnect events \n');
 
