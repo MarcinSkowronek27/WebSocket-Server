@@ -41,7 +41,7 @@ io.on('connection', (socket) => {
     users.splice(users.indexOf(socket.id, 1));
     // console.log('users', users);
     console.log('I remove user from users' + socket.id);
-    socket.broadcast.emit('removeUser', {id: users.indexOf(socket.id, 1)});
+    socket.broadcast.emit('removeUser', {author: 'Chat Bot', content: 'has left the conversation... :('});
   });
   console.log('I\'ve added a listener on message and disconnect events \n');
 

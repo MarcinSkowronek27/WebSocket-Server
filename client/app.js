@@ -2,6 +2,8 @@ const socket = io();
 
 socket.on('message', ({ author, content }) => addMessage(author, content));
 socket.on('newUser', ({ author, content }) => addMessage(author, content));
+// socket.on('removeUser',({ author, content }) => addMessage(author = 'Chat Bot', content = `${socket.author} has left the conversation!`));
+socket.on('removeUser', ({ author, content }) => addMessage(author, content));
 
 'use strict';
 
